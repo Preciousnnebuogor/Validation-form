@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SiV2Ex } from "react-icons/si";
 
-export default function Form() {
+export default function Home() {
   const [error, setError] = useState({})
   const [personalData, setPersonalData] = useState({
     firstname: "",
@@ -19,44 +19,12 @@ export default function Form() {
    !personalData.lastname ||
    !personalData.Dob ||
    !personalData.sex
- ) {setError("Please fill in all fields.");
+ ) 
+ {setError("Please fill in all fields.");
  return;}
   
 
- const newErrors = {};
-
-   
-  const validname = /^[A-Za-z\s]+$/;
-   if(!validname.test(personalData.firstname)){
-    newErrors.firstname("First name is invalid. Only letters and spaces allowed.");
-    return 
-   }
-   
-   if (!validname.test(personalData.middlename)) {
-     newErrors.middlename("Middle name is invalid. Only letters and spaces allowed.");
-     return; 
-   }
-   
-   if (!validname.test(personalData.lastname)) {
-     newErrors.lastname("Last name is invalid. Only letters and spaces allowed.");
-     return; 
-   }
-
-   const validdob = /^\d{4}-\d{2}-\d{2}$/;
-   if(!validdob.test(personalData.Dob)) {
-    newErrors.Dob("Date of Birth must be in YYYY-MM-DD format.");
-    return;
-   }
-   
-   const validsex = ["Male", "Female"]
-   if(!validsex.includes(personalData.sex)) {
-    newErrors.sex("Sex must be either 'Male' or 'Female'.");
-    return;
-   }
-   setError(newErrors);
-  //  stop submission if there are any errors
-  // if (Object.keys(newErrors).length > 0) return;
-   }
+ }
 
  
 
@@ -81,7 +49,6 @@ export default function Form() {
             value={personalData.firstname}
             className="input"
           />
-          {error.firstname && <p className="error">{error.firstname}</p>}
 
           <label className="label">Middle Name</label>
           <input
@@ -96,7 +63,6 @@ export default function Form() {
             value={personalData.middlename}
             className="input"
           />
-          {error.middlename && <p className="error">{error.middlename}</p>}
 
           <label className="label">Last Name</label>
           <input
@@ -111,7 +77,6 @@ export default function Form() {
             value={personalData.lastname}
             className="input"
           />
-          {error.lastname && <p className="error">{error.lastname}</p>}
 
           <label className="label">Date of Birth</label>
           <input
@@ -128,8 +93,8 @@ export default function Form() {
           />
 
           <label className="label">Sex</label>
-          <input
-            type="text"
+
+          <select
             name="sex"
             onChange={(e) =>
               setPersonalData((prev) => ({
@@ -138,11 +103,12 @@ export default function Form() {
               }))
             }
             value={personalData.sex}
-            className="input"
-          />
-
-          {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
-
+            className="select"
+          >
+            <option></option>
+            <option>Female</option>
+            <option>Male</option>
+          </select>
           <button type="submit" className="button">
             Next
           </button>

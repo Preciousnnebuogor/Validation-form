@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { SiV2Ex } from "react-icons/si";
 
 export default function Form() {
-  const [error, setError] = useState({})
   const [personalData, setPersonalData] = useState({
     firstname: "",
     middlename: "",
@@ -11,54 +9,28 @@ export default function Form() {
     sex: "",
   });
 
-  function handleSubmit(e){
-     e.preventDefault();
- if (
-   !personalData.firstname ||
-   !personalData.middlename ||
-   !personalData.lastname ||
-   !personalData.Dob ||
-   !personalData.sex
- ) {setError("Please fill in all fields.");
- return;}
-  
+  const [error, setError] = useState("");
 
- const newErrors = {};
+  const handleSubmit = (e) => {
+    e.preventDefault(); // prevent form reload
 
-   
-  const validname = /^[A-Za-z\s]+$/;
-   if(!validname.test(personalData.firstname)){
-    newErrors.firstname("First name is invalid. Only letters and spaces allowed.");
-    return 
-   }
-   
-   if (!validname.test(personalData.middlename)) {
-     newErrors.middlename("Middle name is invalid. Only letters and spaces allowed.");
-     return; 
-   }
-   
-   if (!validname.test(personalData.lastname)) {
-     newErrors.lastname("Last name is invalid. Only letters and spaces allowed.");
-     return; 
-   }
+    // Check if any field is empty
+    if (
+      !personalData.firstname ||
+      !personalData.middlename ||
+      !personalData.lastname ||
+      !personalData.Dob ||
+      !personalData.sex
+    ) {
+      setError("Please fill in all fields.");
+      return;
+    }
 
-   const validdob = /^\d{4}-\d{2}-\d{2}$/;
-   if(!validdob.test(personalData.Dob)) {
-    newErrors.Dob("Date of Birth must be in YYYY-MM-DD format.");
-    return;
-   }
-   
-   const validsex = ["Male", "Female"]
-   if(!validsex.includes(personalData.sex)) {
-    newErrors.sex("Sex must be either 'Male' or 'Female'.");
-    return;
-   }
-   setError(newErrors);
-  //  stop submission if there are any errors
-  // if (Object.keys(newErrors).length > 0) return;
-   }
-
- 
+    // If all fields are filled, clear error and continue
+    setError("");
+    console.log("Form submitted:", personalData);
+    // You can navigate or handle next steps here
+  };
 
   return (
     <div className="container">
@@ -67,7 +39,7 @@ export default function Form() {
       </div>
       <div className="section2">
         <p className="param1">Personal Details</p>
-        <form onSubmit={handleSubmit} className="form">
+        <form className="form" onSubmit={handleSubmit}>
           <label className="label">First Name</label>
           <input
             name="firstname"
@@ -81,12 +53,11 @@ export default function Form() {
             value={personalData.firstname}
             className="input"
           />
-          {error.firstname && <p className="error">{error.firstname}</p>}
 
           <label className="label">Middle Name</label>
           <input
-            type="text"
             name="middlename"
+            type="text"
             onChange={(e) =>
               setPersonalData((prev) => ({
                 ...prev,
@@ -96,12 +67,11 @@ export default function Form() {
             value={personalData.middlename}
             className="input"
           />
-          {error.middlename && <p className="error">{error.middlename}</p>}
 
           <label className="label">Last Name</label>
           <input
-            type="text"
             name="lastname"
+            type="text"
             onChange={(e) =>
               setPersonalData((prev) => ({
                 ...prev,
@@ -111,12 +81,11 @@ export default function Form() {
             value={personalData.lastname}
             className="input"
           />
-          {error.lastname && <p className="error">{error.lastname}</p>}
 
           <label className="label">Date of Birth</label>
           <input
-            type="date"
             name="Dob"
+            type="text"
             onChange={(e) =>
               setPersonalData((prev) => ({
                 ...prev,
@@ -129,8 +98,8 @@ export default function Form() {
 
           <label className="label">Sex</label>
           <input
-            type="text"
             name="sex"
+            type="text"
             onChange={(e) =>
               setPersonalData((prev) => ({
                 ...prev,
@@ -141,6 +110,7 @@ export default function Form() {
             className="input"
           />
 
+          {/* Show error message if any */}
           {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
 
           <button type="submit" className="button">
