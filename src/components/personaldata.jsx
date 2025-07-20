@@ -149,9 +149,12 @@ export default function PersonalData() {
             <option>Female</option>
             <option>Male</option>
           </select>
-          <button type="submit" className="button">
-            Next
-          </button>
+          <div className="buttDiv">
+            <button type="submit" className="button">
+              Next
+            </button>
+            <button className="button">Previous</button>
+          </div>
         </form>
       </div>
     </div>

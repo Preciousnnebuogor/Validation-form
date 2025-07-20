@@ -1,32 +1,34 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Location() {
+   const navigate = useNavigate();
   const [error, setError] = useState({});
   const [personalData, setPersonalData] = useState({
     home: "",
     state: "",
     country: "",
     nationality: "",
-    occupation: "",
-    marital: "",
+    city: "",
+    
   });
   function handleChange() {}
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const formError = {}
+    const formError = {};
     const validname = /^[A-Za-z\s]+$/;
 
-    if(!personalData.home.trim()){
-        formError.home ="Home address is required"
-    } else if(validname.test(personalData.home)){
-        formError.home = "They must be a home No"
+    if (!personalData.home.trim()) {
+      formError.home = "Home address is required";
+    } else if (validname.test(personalData.home)) {
+      formError.home = "They must be a home No";
     }
-    if(!personalData.state.trim()){
-        formError.state = "State is required"
-    } else if(!validname.test(personalData.state)){
-        formError = "Only letters are allowed";
+    if (!personalData.state.trim()) {
+      formError.state = "State is required";
+    } else if (!validname.test(personalData.state)) {
+      formError = "Only letters are allowed";
     }
     if (!personalData.country.trim()) {
       formError.country = "State is required";
@@ -38,37 +40,40 @@ export default function Location() {
     } else if (!validname.test(personalData.nationality)) {
       formError = "Only letters are allowed";
     }
-    if (!personalData.occupation.trim()) {
-      formError.occuption = "State is required";
-    } else if (!validname.test(personalData.occupation)) {
+    if (!personalData.city.trim()) {
+      formError.occuption = "City is required";
+    } else if (!validname.test(personalData.city)) {
       formError = "Only letters are allowed";
     }
-    if (!personalData.marital.trim()) {
-      formError.marital = "State is required";
-    } 
-    setError(formError)
+    
+    setError(formError);
     if (Object.keys(formError).length === 0) {
       console.log("Form submitted", personalData);
-    }
 
-    setPersonalData({
-      home: "",
-      state: "",
-      country: "",
-      nationality: "",
-      occupation: "",
-      marital: "",
-    });
+      setPersonalData({
+        home: "",
+        state: "",
+        country: "",
+        nationality: "",
+        city: "",
+      });
+
+      navigate("/education");
+    }
   }
 
   return (
     <div className="container">
       <div className="section1">
-         <img
-          src="/assets/girl.jpeg"
-          style={{ width: "100%", maxHeight: "100vh", objectFit: "contain" }}
+        <img
+          src="/assets/boy2.jpeg"
+          style={{
+            width: "100%",
+            maxHeight: "100vh",
+            objectFit: "contain",
+            backgroundColor: "white",
+          }}
         />
-
       </div>
       <div className="section2">
         <p className="param1">Location Details</p>
@@ -88,6 +93,21 @@ export default function Location() {
             className="input"
           />
           {error.home && <p style={{ color: "red" }}>{error.home}</p>}
+
+          <label className="label">City</label>
+          <input
+            name="city"
+            onChange={(e) =>
+              setPersonalData((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
+            value={personalData.city}
+            type="text"
+            className="input"
+          />
+          {error.city && <p style={{ color: "red" }}>{error.city}</p>}
 
           <label className="label">State</label>
           <input
@@ -136,38 +156,12 @@ export default function Location() {
             <p style={{ color: "red" }}>{error.nationality}</p>
           )}
 
-          <label className="label">Occupation</label>
-          <input
-            name="occupation"
-            onChange={(e) =>
-              setPersonalData((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-            value={personalData.occupation}
-            type="text"
-            className="input"
-          />
-          {error.occupation && <p style={{ color: "red" }}>{error.occupation}</p>}
-
-          <label className="label">Marital status</label>
-
-          <select
-            name="marital"
-            onChange={(e) =>
-              setPersonalData((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-            value={personalData.marital}
-            className="select"
-          >
-            <option></option>
-            <option>Single</option>
-            <option>Married</option>
-          </select>
+          <div className="buttDiv">
+            <button type="submit" className="button">
+              Next
+            </button>
+            <button className="button">Previous</button>
+          </div>
           <button type="submit" className="button">
             Next
           </button>
