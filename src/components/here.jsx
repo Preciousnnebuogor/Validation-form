@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Form() {
+export default function HForm() {
   const [errors, setErrors] = useState({});
   const [personalData, setPersonalData] = useState({
     firstname: "",

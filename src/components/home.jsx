@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { SiV2Ex } from "react-icons/si";
 
 export default function Home() {
   const [error, setError] = useState({})
@@ -13,17 +12,35 @@ export default function Home() {
 
   function handleSubmit(e){
      e.preventDefault();
- if (
-   !personalData.firstname ||
-   !personalData.middlename ||
-   !personalData.lastname ||
-   !personalData.Dob ||
-   !personalData.sex
- ) 
- {setError("Please fill in all fields.");
- return;}
-  
+ 
+     const formError = {}
+     const validname = /^[A-Za-z\s]+$/;
 
+     if(!personalData.firstname.trim()){
+        formError.firstname = "First name is required"
+     } else if(!validname.test(personalData.firstname)){
+        formError.firstname = "Only letters are allowed"
+     }
+     if (!personalData.lastname.trim()) {
+       formError.lastname = "Last name is required";
+     } else if (!validname.test(personalData.lastname)) {
+       formError.firstname = "Only letters are allowed";
+     }
+     if (!personalData.middlename.trim()) {
+       formError.middlename = "Middle name is required";
+     } else if (!validname.test(personalData.middlename)) {
+       formError.middlename = "Only letters are allowed";
+     }
+    if(!personalData.Dob){
+        formError.Dob ="Date of birth is required"
+    }
+    if(!personalData.sex){
+        formError.sex ="Sex is required"
+    }
+     setError(formError)
+     if (Object.keys(formError).length === 0){
+         console.log("Form submitted", personalData);
+     }
  }
 
  
@@ -35,6 +52,7 @@ export default function Home() {
       </div>
       <div className="section2">
         <p className="param1">Personal Details</p>
+
         <form onSubmit={handleSubmit} className="form">
           <label className="label">First Name</label>
           <input
@@ -49,6 +67,8 @@ export default function Home() {
             value={personalData.firstname}
             className="input"
           />
+          {error.firstname && <p style={{ color: "red" }}>{error.firstname}</p>}
+         
 
           <label className="label">Middle Name</label>
           <input
@@ -63,6 +83,9 @@ export default function Home() {
             value={personalData.middlename}
             className="input"
           />
+          {error.middlename && (
+            <p style={{ color: "red" }}>{error.middlename}</p>
+          )}
 
           <label className="label">Last Name</label>
           <input
@@ -77,6 +100,7 @@ export default function Home() {
             value={personalData.lastname}
             className="input"
           />
+          {error.lastname && <p style={{ color: "red" }}>{error.lastname}</p>}
 
           <label className="label">Date of Birth</label>
           <input
@@ -91,7 +115,7 @@ export default function Home() {
             value={personalData.Dob}
             className="input"
           />
-
+          {error.Dob && <p style={{ color: "red" }}>{error.Dob}</p>}
           <label className="label">Sex</label>
 
           <select
@@ -105,6 +129,7 @@ export default function Home() {
             value={personalData.sex}
             className="select"
           >
+            {error.sex && <p style={{ color: "red" }}>{error.sex}</p>}
             <option></option>
             <option>Female</option>
             <option>Male</option>
