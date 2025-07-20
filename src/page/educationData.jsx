@@ -20,14 +20,14 @@ export default function Education() {
     const validname = /^[A-Za-z\s]+$/;
 
     if(!personalData.institution.trim()){
-        formError.home ="Institution is required"
-    } else if(validname.test(personalData.home)){
-        formError.home = "Only letters are allowed";
+        formError.institution ="Institution is required"
+    } else if(validname.test(personalData.institution)){
+        formError.institution = "Only letters are allowed";
     }
     if(!personalData.Discipline.trim()){
         formError.Discipline = "Discipline is required"
     } else if(!validname.test(personalData.Discipline)){
-        formError = "Only letters are allowed";
+        formError.Discipline = "Only letters are allowed";
     }
     
     if (!personalData.entry.trim()) {
@@ -51,7 +51,7 @@ export default function Education() {
       graduate: "",
       Grades: "",
     });
-    // navigate("/");
+    navigate("/others");
   }
 }
 
@@ -64,7 +64,6 @@ export default function Education() {
             width: "100%",
             maxHeight: "100vh",
             objectFit: "contain",
-            
           }}
         />
       </div>
@@ -159,6 +158,9 @@ export default function Education() {
             <option>Lower Credit</option>
             <option>Fail</option>
           </select>
+          {error.Grades && (
+            <p style={{ color: "red" }}>{error.Grades}</p>
+          )}
           <button type="submit" className="button">
             Next
           </button>
