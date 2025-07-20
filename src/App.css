@@ -13,10 +13,10 @@ body{
 .container{
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  /* align-items: center; */
   width: 100%;
-  padding: 10px;
-  /* height: 100vh; */
+  padding: 0px 10px;
+
 }
 .section1{
   width: 50%;
@@ -26,12 +26,15 @@ body{
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin: 0;
+  
   border: 2px solid white;
 }
 .form{
   display: flex;
+  
   width: 100%;
-  padding: 0px 20px;
+  padding: 0px 30px;
   /* align-items: center; */
   flex-direction: column;
   
@@ -40,22 +43,25 @@ body{
     margin-top: 10px;
     font-size: 40px;
     font-weight: 400;
+    background-color: blue;
+  
   }
 .label{
   text-align: start;
   font-size: 20px;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 .input{
-  width: 80%;
+  width: 90%;
   padding: 8px 10px;
+   
   border-radius: 10px;
-  margin-top: 8px;
+  margin-top: 5px;
   border: none;
   outline: none;
 }
 .button{
-  width: 80%;
+  width: 90%;
   padding: 8px 10px;
   border-radius: 10px;
   margin-top: 25px;
@@ -63,13 +69,15 @@ body{
   outline: none;
   font-size: 20px;
   font-weight: 600;
+  cursor: pointer;
 
 }
 .select{
-  width: 80%;
+  width: 90%;
   padding: 8px 10px;
   border-radius: 10px;
   margin-top: 8px;
   border: none;
   outline: none;
+  cursor: pointer;
 }

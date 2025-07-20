@@ -60,8 +60,12 @@ export default function PersonalData() {
   return (
     <div className="container">
       <div className="section1">
-        <p>Image here</p>
+        <img
+          src="/assets/boy.jpeg"
+          style={{ width: "100%", maxHeight: "100vh", objectFit: "contain" }}
+        />
       </div>
+
       <div className="section2">
         <p className="param1">Personal Details</p>
 
@@ -80,7 +84,6 @@ export default function PersonalData() {
             className="input"
           />
           {error.firstname && <p style={{ color: "red" }}>{error.firstname}</p>}
-         
 
           <label className="label">Middle Name</label>
           <input

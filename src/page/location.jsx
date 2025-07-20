@@ -64,7 +64,11 @@ export default function Location() {
   return (
     <div className="container">
       <div className="section1">
-        <p>Image here</p>
+         <img
+          src="/assets/girl.jpeg"
+          style={{ width: "100%", maxHeight: "100vh", objectFit: "contain" }}
+        />
+
       </div>
       <div className="section2">
         <p className="param1">Location Details</p>
