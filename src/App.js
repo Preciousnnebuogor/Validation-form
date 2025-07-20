@@ -1,21 +1,22 @@
 
 import './App.css';
-import Check from './components/check';
-import Form from './components/form';
-import HForm from './components/here';
-import Home from './components/home';
+
+import Location from './page/location';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PersonalData from './components/personaldata';
 
 
 
 function App() {
   return (
-    <div>
-    
-{/* <Form/> */}
-{/* <Check/> */}
-<Home/>
-{/* <HForm/> */}
-    </div>
+    <BrowserRouter>
+      
+      <Routes>
+        <Route path="/" element={<PersonalData />} />
+        <Route path="/location" element={<Location />} />
+        {/* <Route path="/education" element={<Education />} /> */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 

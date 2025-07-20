@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Home() {
+export default function PersonalData() {
+  const navigate = useNavigate();
   const [error, setError] = useState({})
   const [personalData, setPersonalData] = useState({
     firstname: "",
@@ -12,6 +14,8 @@ export default function Home() {
 
   function handleSubmit(e){
      e.preventDefault();
+
+     
  
      const formError = {}
      const validname = /^[A-Za-z\s]+$/;
@@ -24,7 +28,7 @@ export default function Home() {
      if (!personalData.lastname.trim()) {
        formError.lastname = "Last name is required";
      } else if (!validname.test(personalData.lastname)) {
-       formError.firstname = "Only letters are allowed";
+       formError.lastname = "Only letters are allowed";
      }
      if (!personalData.middlename.trim()) {
        formError.middlename = "Middle name is required";
@@ -40,10 +44,18 @@ export default function Home() {
      setError(formError)
      if (Object.keys(formError).length === 0){
          console.log("Form submitted", personalData);
-     }
+     
+      setPersonalData({
+        firstname: "",
+        middlename: "",
+        lastname: "",
+        Dob: "",
+        sex: "",
+      });
+      navigate("/location");
  }
+  }
 
- 
 
   return (
     <div className="container">
