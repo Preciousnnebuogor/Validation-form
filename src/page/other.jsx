@@ -35,7 +35,7 @@ export default function Others() {
     if (!personalData.mobile.trim()) {
       formError.mobile = "Phone number is required";
     } else if (!validmobile.test(personalData.mobile)) {
-      formError.mobile = "Only letters are allowed";
+      formError.mobile = "Only numbers are allowed";
     }
 
     if (!personalData.soo.trim()) {
@@ -69,7 +69,7 @@ export default function Others() {
       //     soo: "",
       //     village: "",
       //   });
-      // navigate("/");
+      navigate("/final");
     }
    
   }
@@ -82,7 +82,7 @@ export default function Others() {
     <div className="container">
       <div className="section1">
         <img
-          src="/assets/girl2.jpeg"
+          src="/assets/look.jpeg"
           style={{
             width: "100%",
             maxHeight: "100vh",

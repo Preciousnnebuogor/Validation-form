@@ -27,8 +27,6 @@ body{
   align-items: center;
   flex-direction: column;
   margin: 0;
-  
-  border: 2px solid white;
 }
 .form{
   display: flex;
@@ -98,4 +96,20 @@ body{
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+.section22{
+  width: 50%;
+  display: flex;
+  align-items: center;
+height: 100vh;
+  margin: 0;
+  padding: 30px;
+  
+}
+.param2{
+  font-size: 50px;
+  font-weight: 400;
+  
+  
 }
