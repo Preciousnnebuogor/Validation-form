@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Others() {
   const navigate = useNavigate();
@@ -9,9 +9,15 @@ export default function Others() {
     occupation: "",
     marital: "",
     soo: "",
-    village: ""
-    
+    village: "",
   });
+
+   useEffect(() => {
+     const saved = localStorage.getItem("othersData");
+     if (saved) {
+       setPersonalData(JSON.parse(saved));
+     }
+   }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -21,18 +27,16 @@ export default function Others() {
 
     if (!personalData.occupation.trim()) {
       formError.occupation = "Occupation is required";
-    } else if (validname.test(personalData.occupation)) {
+    } else if (!validname.test(personalData.occupation)) {
       formError.occupation = "Only letters are allowed";
     }
-   
+
     const validmobile = /^[0-9]{10,15}$/;
     if (!personalData.mobile.trim()) {
       formError.mobile = "Phone number is required";
     } else if (!validmobile.test(personalData.mobile)) {
       formError.mobile = "Only letters are allowed";
     }
-
- 
 
     if (!personalData.soo.trim()) {
       formError.soo = "State of origin number is required";
@@ -49,31 +53,41 @@ export default function Others() {
     if (!personalData.marital.trim()) {
       formError.marital = "Marital status is required";
     }
-    
+
     setError(formError);
     if (Object.keys(formError).length === 0) {
       console.log("Form submitted", personalData);
 
-      setPersonalData({
-        mobile: "",
-        occupation: "",
-        marital: "",
-        soo: "",
-        village: "",
-      });
+      localStorage.setItem("othersData", JSON.stringify(personalData));
+
+      // inside the component:
+
+      //   setPersonalData({
+      //     mobile: "",
+      //     occupation: "",
+      //     marital: "",
+      //     soo: "",
+      //     village: "",
+      //   });
       // navigate("/");
     }
+   
+  }
+
+  function handlePrev() {
+    navigate(-1); 
   }
 
   return (
     <div className="container">
       <div className="section1">
         <img
-          src="/assets/girl.jpeg"
+          src="/assets/girl2.jpeg"
           style={{
             width: "100%",
             maxHeight: "100vh",
-            objectFit: "contain",
+            objectFit: "cover",
+            backgroundColor: "white",
           }}
         />
       </div>
@@ -83,7 +97,7 @@ export default function Others() {
         <form onSubmit={handleSubmit} className="form">
           <label className="label">Phone number</label>
           <input
-            name="tel"
+            name="mobile"
             onChange={(e) =>
               setPersonalData((prev) => ({
                 ...prev,
@@ -91,7 +105,7 @@ export default function Others() {
               }))
             }
             value={personalData.mobile}
-            type="number"
+            type="tel"
             className="input"
           />
           {error.mobile && <p style={{ color: "red" }}>{error.mobile}</p>}
@@ -136,7 +150,7 @@ export default function Others() {
               }))
             }
             value={personalData.occupation}
-            type="date"
+            type="text"
             className="input"
           />
           {error.occupation && (
@@ -160,13 +174,16 @@ export default function Others() {
             <option>Single</option>
             <option>Married</option>
           </select>
-          {error.marital && (
-            <p style={{ color: "red" }}>{error.marital}</p>
-          )}
+          {error.marital && <p style={{ color: "red" }}>{error.marital}</p>}
 
-          <button type="submit" className="button">
-            Next
-          </button>
+          <div className="buttDiv">
+            <button type="button" onClick={handlePrev} className="button">
+              Previous
+            </button>
+            <button type="submit" className="button">
+              Next
+            </button>
+          </div>
         </form>
       </div>
     </div>

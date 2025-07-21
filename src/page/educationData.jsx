@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Education() {
@@ -12,6 +12,12 @@ export default function Education() {
     Grades: "",
   });
   
+ useEffect(() => {
+     const saved = localStorage.getItem("othersData");
+     if (saved) {
+       setPersonalData(JSON.parse(saved));
+     }
+   }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -42,17 +48,22 @@ export default function Education() {
     setError(formError)
     if (Object.keys(formError).length === 0) {
       console.log("Form submitted", personalData);
+       localStorage.setItem("othersData", JSON.stringify(personalData));
     
 
-    setPersonalData({
-      institution: "",
-      Discipline: "",
-      entry: "",
-      graduate: "",
-      Grades: "",
-    });
+    // setPersonalData({
+    //   institution: "",
+    //   Discipline: "",
+    //   entry: "",
+    //   graduate: "",
+    //   Grades: "",
+    // });
     navigate("/others");
   }
+}
+
+function handlePrev() {
+  navigate(-1);
 }
 
   return (
@@ -158,12 +169,15 @@ export default function Education() {
             <option>Lower Credit</option>
             <option>Fail</option>
           </select>
-          {error.Grades && (
-            <p style={{ color: "red" }}>{error.Grades}</p>
-          )}
-          <button type="submit" className="button">
-            Next
-          </button>
+          {error.Grades && <p style={{ color: "red" }}>{error.Grades}</p>}
+          <div className="buttDiv">
+            <button type="button" onClick={handlePrev} className="button">
+              Previous
+            </button>
+            <button type="submit" className="button">
+              Next
+            </button>
+          </div>
         </form>
       </div>
     </div>

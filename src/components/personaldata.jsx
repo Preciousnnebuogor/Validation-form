@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function PersonalData() {
@@ -12,10 +12,16 @@ export default function PersonalData() {
     sex: "",
   });
 
+
+  useEffect(() => {
+       const saved = localStorage.getItem("othersData");
+       if (saved) {
+         setPersonalData(JSON.parse(saved));
+       }
+     }, []);
+
   function handleSubmit(e){
      e.preventDefault();
-
-     
  
      const formError = {}
      const validname = /^[A-Za-z\s]+$/;
@@ -44,14 +50,15 @@ export default function PersonalData() {
      setError(formError)
      if (Object.keys(formError).length === 0){
          console.log("Form submitted", personalData);
+          localStorage.setItem("othersData", JSON.stringify(personalData));
      
-      setPersonalData({
-        firstname: "",
-        middlename: "",
-        lastname: "",
-        Dob: "",
-        sex: "",
-      });
+      // setPersonalData({
+      //   firstname: "",
+      //   middlename: "",
+      //   lastname: "",
+      //   Dob: "",
+      //   sex: "",
+      // });
       navigate("/location");
  }
   }
@@ -149,12 +156,11 @@ export default function PersonalData() {
             <option>Female</option>
             <option>Male</option>
           </select>
-          <div className="buttDiv">
-            <button type="submit" className="button">
+          
+            <button type="submit" className="button1">
               Next
             </button>
-            <button className="button">Previous</button>
-          </div>
+            
         </form>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Location() {
@@ -12,7 +12,13 @@ export default function Location() {
     city: "",
     
   });
-  function handleChange() {}
+  
+   useEffect(() => {
+       const saved = localStorage.getItem("othersData");
+       if (saved) {
+         setPersonalData(JSON.parse(saved));
+       }
+     }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -49,18 +55,24 @@ export default function Location() {
     setError(formError);
     if (Object.keys(formError).length === 0) {
       console.log("Form submitted", personalData);
+      localStorage.setItem("othersData", JSON.stringify(personalData));
 
-      setPersonalData({
-        home: "",
-        state: "",
-        country: "",
-        nationality: "",
-        city: "",
-      });
+      // setPersonalData({
+      //   home: "",
+      //   state: "",
+      //   country: "",
+      //   nationality: "",
+      //   city: "",
+      // });
 
       navigate("/education");
     }
   }
+
+  function handlePrev() {
+    navigate(-1);
+  }
+
 
   return (
     <div className="container">
@@ -157,14 +169,13 @@ export default function Location() {
           )}
 
           <div className="buttDiv">
+            <button type="button" onClick={handlePrev} className="button">
+              Previous
+            </button>
             <button type="submit" className="button">
               Next
             </button>
-            <button className="button">Previous</button>
           </div>
-          <button type="submit" className="button">
-            Next
-          </button>
         </form>
       </div>
     </div>
